@@ -1,0 +1,27 @@
+﻿@using AiStockSentiment.Data.Models
+
+<div class="news-feed">
+    <h3>News</h3>
+
+    @if (Items is null || Items.Count == 0)
+    {
+        <div class="muted">No headlines yet.</div>
+    }
+    else
+    {
+        <ul class="news-list">
+            @foreach (var n in Items)
+            {
+                <li class="news-item">
+                    <span class="source">@n.Source</span>
+                    <a href="@n.Url" target="_blank" rel="noopener noreferrer">@n.Title</a>
+                    <span class="time">@n.PublishedUtc.ToLocalTime().ToString("g")</span>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+@code {
+    [Parameter] public IReadOnlyList<NewsItem>? Items { get; set; }  // <-- required
+}

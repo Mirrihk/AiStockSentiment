@@ -1,0 +1,20 @@
+﻿@* Components/Dashboard/Dashboard.razor *@
+@page "/"
+<h1 class="title">AI Stock Sentiment</h1>
+
+<TickerStrip Tickers="@Tickers" />
+
+<div class="grid">
+    <SentimentGauge Ticker="@Current" Aggregate="@currentAgg" />
+    <SentimentChart Series="@currentAgg?.Series" />
+    <NewsFeed Items="@news" />
+</div>
+
+@code {
+    private readonly string[] Tickers = new[] { "AAPL", "MSFT", "NVDA", "TSLA", "BTC-USD" };
+    private string Current => Tickers[0];
+    private AiStockSentiment.Data.Models.SentimentAggregate? currentAgg;
+    private IReadOnlyList<AiStockSentiment.Data.Models.NewsItem> news = Array.Empty<AiStockSentiment.Data.Models.NewsItem>();
+
+    // Hook SignalR in OnInitializedAsync, update state on QuoteUpdated/SentimentUpdated/NewsUpdated
+}

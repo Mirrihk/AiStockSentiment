@@ -1,0 +1,25 @@
+﻿@page "/"
+@using AiStockSentiment
+@namespace AiStockSentiment.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Stock Sentiment</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+    <app>
+        <component type="typeof(AiStockSentiment.App)" render-mode="ServerPrerendered" />
+    </app>
+
+    <script src="_framework/blazor.server.js"></script>
+</body>
+</html>

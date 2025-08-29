@@ -1,0 +1,35 @@
+﻿@using AiStockSentiment.Data.Models
+@inject IJSRuntime JS
+
+<div class="sentiment-chart">
+    <canvas id="@_canvasId" width="720" height="260"></canvas>
+
+    @* Simple fallback if no data *@
+    @if (Series is null || Series.Count == 0)
+    {
+        <div class="muted">No sentiment data yet.</div>
+    }
+</div>
+
+@code {
+    [Parameter] public IReadOnlyList<SentimentPoint>? Series { get; set; }   // <-- required
+
+    private readonly string _canvasId = $"chart_{Guid.NewGuid():N}";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (Series is null || Series.Count == 0) return;
+
+        // If you wired wwwroot/js/chartInterop.js with window.charts.line(labels, values)
+        try
+        {
+            var labels = Series.Select(p => p.TimestampUtc).ToArray();
+            var values = Series.Select(p => p.Score).ToArray();
+            await JS.InvokeVoidAsync("charts.line", _canvasId, labels, values);
+        }
+        catch
+        {
+            // Swallow if interop not ready; fallback UI above will still show.
+        }
+    }
+}

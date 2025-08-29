@@ -1,0 +1,14 @@
+﻿@using AiStockSentiment.Data.Models
+
+<div class="ticker-strip">
+    @foreach (var t in Tickers)
+    {
+        <span class="ticker">@t</span>
+    }
+</div>
+
+@code {
+    [Parameter] public IEnumerable<string> Tickers { get; set; } = Array.Empty<string>();
+    // (optional) if you also want to show live prices:
+    // [Parameter] public IReadOnlyDictionary<string, TickerQuote>? Quotes { get; set; }
+}

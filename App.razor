@@ -1,0 +1,13 @@
+﻿@using AiStockSentiment.Components.Layout
+@inherits Microsoft.AspNetCore.Components.ComponentBase
+
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p>Sorry, there’s nothing here.</p>
+        </LayoutView>
+    </NotFound>
+</Router>

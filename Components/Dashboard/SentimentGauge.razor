@@ -1,0 +1,13 @@
+﻿@using AiStockSentiment.Data.Models
+@inherits Microsoft.AspNetCore.Components.ComponentBase
+
+<div class="gauge">
+    <h3>@(string.IsNullOrWhiteSpace(Ticker) ? "—" : Ticker)</h3>
+    <div>Score: @(Aggregate is null ? "…" : Aggregate.Score.ToString("0.000"))</div>
+    <div>EMA(5m): @(Aggregate is null ? "…" : Aggregate.Ema5m.ToString("0.000"))</div>
+</div>
+
+@code {
+    [Parameter] public string Ticker { get; set; } = string.Empty;      // must be public set
+    [Parameter] public SentimentAggregate? Aggregate { get; set; }       // must be public set
+}
